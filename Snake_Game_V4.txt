@@ -2,13 +2,13 @@
 let s;
 let scl = 20;
 let food;
-let food2;
+let food2;      //새로운 먹이 변수 선언
 let img;
 playfield = 600;
 
 // p5js Setup function - required
 function preload(){
-  img = loadImage("https://raw.githubusercontent.com/song4917/img/main/2616484352942B8E19.png");
+  img = loadImage("https://raw.githubusercontent.com/song4917/img/main/2616484352942B8E19.png");        //img 라는 변수에 플레이어에게 혼란을 주기위한 착시현상 사진 준비
 }
 
 
@@ -26,14 +26,14 @@ function setup() {
 
 // p5js Draw function - required
 function draw() {
-  background(img);
+  background(img);          // 착시현상 사진 
   
   scoreboard();
   if (s.eat(food)) {
     pickLocation();
     s.update();
   }
-  if (s.eat2(food2)) {
+  if (s.eat2(food2)) {      //2점 짜리 먹이를 먹었다면 실행되는 코드
     pickLocation2();
     s.update2();
   }
@@ -64,14 +64,14 @@ function pickLocation() {
   }
 }
 
-function pickLocation2() {
+function pickLocation2() {          //2점짜리 음식을 먹은 후 랜덤 먹이 
   let cols = floor(playfield/scl);
   let rows = floor(playfield/scl);
   food2 = createVector(floor(random(cols)), floor(random(rows)));
   food2.mult(scl);
 
   // Check the food isn't appearing inside the tail
-  for (let i = 0; i < s.tail.length; i++) {
+  for (let i = 0; i < s.tail.length; i++) {           
     let pos = s.tail[i];
     let d = dist(food2.x, food2.y, pos.x, pos.y);
     if (d < 1) {
@@ -138,7 +138,7 @@ function Snake() {
     }
   }
 
-    this.eat2 = function(pos) {
+    this.eat2 = function(pos) {                     // 2점 짜리 먹이 섭취 후 2점이 오르는 
     let d = dist(this.x, this.y, pos.x, pos.y);
     if (d < 1) {
       this.total+=2;
@@ -181,7 +181,7 @@ function Snake() {
     this.y = constrain(this.y, 0, playfield-scl);
   }
 
-  this.update2 = function(){
+  this.update2 = function(){                  // 2점 짜리 먹이를 먹을경우 생기는 꼬리의 
     if (this.total === this.tail.length) {
       for (let i = 0; i < this.tail.length-1; i++) {
         this.tail[i] = this.tail[i+1];
